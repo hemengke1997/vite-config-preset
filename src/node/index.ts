@@ -1,4 +1,5 @@
 import type tsconfigPaths from 'vite-tsconfig-paths'
+import { type Options as ReactOptions } from '@vitejs/plugin-react'
 import createDebug from 'debug'
 import deepMerge from 'deepmerge'
 import glob from 'fast-glob'
@@ -52,6 +53,10 @@ interface PluginOptions {
    */
   tsconfigPaths?: boolean | Parameters<typeof tsconfigPaths>[0]
   /**
+   * @default true
+   */
+  react?: boolean | ReactOptions
+  /**
    *
    */
   json5?: boolean | Json5Options
@@ -67,6 +72,7 @@ const defaultOptions: PluginOptions = {
   logBuildTime: true,
   vConsole: undefined,
   tsconfigPaths: true,
+  react: true,
   json5: true,
 }
 
@@ -77,7 +83,7 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
 
   const { isSsrBuild, mode } = configEnv
 
-  let { svgr, legacy, splitVendorChunk, logBuildTime, vConsole, tsconfigPaths, json5 } =
+  let { svgr, legacy, splitVendorChunk, logBuildTime, vConsole, tsconfigPaths, react, json5 } =
     options as Required<PluginOptions>
 
   if (isUndefined(vConsole)) {
@@ -141,6 +147,11 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
   if (tsconfigPaths) {
     const { tsconfigPathsPlugin } = await import('./plugins/tsconfig-paths')
     vitePlugins.push(tsconfigPathsPlugin(isBoolean(tsconfigPaths) ? {} : tsconfigPaths))
+  }
+
+  if (react) {
+    const { react: reactPlugin } = await import('./plugins/react')
+    vitePlugins.push(reactPlugin(isBoolean(react) ? {} : react))
   }
 
   if (json5) {

@@ -26,9 +26,14 @@ import { preset } from 'vite-config-preset'
 
 // https://vitejs.dev/config/
 export default defineConfig((env) => {
-  return preset({
-    env,
-  })
+  return preset(
+    {
+      env,
+    },
+    {
+      legacy: true, // 是否启用 legacy 插件
+    },
+  )
 })
 ```
 
