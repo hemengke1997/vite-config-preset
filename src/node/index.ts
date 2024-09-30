@@ -18,7 +18,7 @@ import { type viteVConsoleOptions } from 'vite-plugin-vconsole'
 import { type LegacyOptions } from './plugins/legacy'
 import { visualizer as visualizerPlugin } from './plugins/visualizer'
 import { injectEnv, pathsMapToAlias } from './utils'
-import { isBoolean, isUndefined } from './utils/is'
+import { isBoolean } from './utils/is'
 
 const debug = createDebug('vite-config')
 
@@ -44,7 +44,7 @@ interface PluginOptions {
    */
   logBuildTime?: boolean
   /**
-   * @default true when process.env.NODE_ENV === 'development' or 'test'
+   * @default false
    */
   vConsole?: boolean | viteVConsoleOptions
   /**
@@ -57,7 +57,7 @@ interface PluginOptions {
    */
   react?: boolean | ReactOptions
   /**
-   *
+   * @default true
    */
   json5?: boolean | Json5Options
 }
@@ -70,7 +70,7 @@ const defaultOptions: PluginOptions = {
   legacy: false,
   splitVendorChunk: undefined,
   logBuildTime: true,
-  vConsole: undefined,
+  vConsole: false,
   tsconfigPaths: true,
   react: true,
   json5: true,
@@ -81,14 +81,10 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
 
   debug('options:', options)
 
-  const { isSsrBuild, mode } = configEnv
+  const { isSsrBuild } = configEnv
 
   let { svgr, legacy, splitVendorChunk, logBuildTime, vConsole, tsconfigPaths, react, json5 } =
     options as Required<PluginOptions>
-
-  if (isUndefined(vConsole)) {
-    vConsole = !['production'].includes(mode || process.env.NODE_ENV || '')
-  }
 
   const vitePlugins: PluginOption = [visualizerPlugin()]
 

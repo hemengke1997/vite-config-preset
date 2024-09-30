@@ -14,11 +14,10 @@ const esm: Options = {
   outDir: 'dist/client',
   format: ['esm'],
   splitting: false,
-  outExtension: () => ({ js: '.js' }),
-  plugins: [bundleless({ ext: '.js' })],
   dts: {
     banner: '/// <reference types="vite/client" />',
   },
+  ...bundleless(),
 }
 
 const cjs: Options = {
@@ -26,6 +25,15 @@ const cjs: Options = {
   outDir: 'dist/node',
   entry: ['src/node/index.ts'],
   format: ['cjs', 'esm'],
+  banner(ctx) {
+    if (ctx.format === 'esm') {
+      return {
+        js: `import { createRequire } from 'module';
+      const require = createRequire(import.meta.url);
+    `,
+      }
+    }
+  },
 }
 
 export default defineConfig([esm, cjs])

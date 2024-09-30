@@ -36,7 +36,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "dev": "tsup --watch",
+    "dev": "rm -rf dist && tsup --watch",
     "build": "rm -rf dist && tsup",
     "commitlint": "commitlint --edit",
     "prepare": "simple-git-hooks",
@@ -48,13 +48,9 @@
   "peerDependencies": {
     "@vitejs/plugin-legacy": ">=5",
     "@vitejs/plugin-react": ">=4",
-    "vconsole": "*",
     "vite": ">=5.0.0"
   },
   "peerDependenciesMeta": {
-    "vconsole": {
-      "optional": true
-    },
     "@vitejs/plugin-legacy": {
       "optional": true
     },
@@ -63,10 +59,10 @@
     }
   },
   "dependencies": {
-    "debug": "^4.3.6",
+    "debug": "^4.3.7",
     "deepmerge": "^4.3.1",
     "fast-glob": "^3.3.2",
-    "get-tsconfig": "^4.7.6",
+    "get-tsconfig": "^4.8.1",
     "local-pkg": "^0.5.0",
     "picologger": "^0.0.1",
     "rollup-plugin-visualizer": "^5.12.0",
@@ -76,23 +72,23 @@
     "vite-tsconfig-paths": "^5.0.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.4.0",
-    "@minko-fe/commitlint-config": "^2.1.0",
-    "@minko-fe/eslint-config": "^3.3.3",
-    "@minko-fe/prettier-config": "^2.2.2",
-    "@minko-fe/tsconfig": "^2.1.0",
+    "@commitlint/cli": "^19.5.0",
+    "@minko-fe/commitlint-config": "^2.1.2",
+    "@minko-fe/eslint-config": "^4.0.2",
+    "@minko-fe/prettier-config": "^2.2.3",
+    "@minko-fe/tsconfig": "^2.1.1",
     "@types/debug": "^4.1.12",
-    "bumpp": "^9.5.1",
+    "bumpp": "^9.6.1",
     "conventional-changelog-cli": "^5.0.0",
     "cross-env": "^7.0.3",
-    "eslint": "^9.9.0",
+    "eslint": "^9.11.1",
     "npm-run-all": "^4.1.5",
     "simple-git-hooks": "^2.11.1",
-    "taze": "^0.16.6",
-    "tsup": "^8.2.4",
-    "tsup-plugin-bundleless": "^0.4.0",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.2"
+    "taze": "^0.17.2",
+    "tsup": "^8.3.0",
+    "tsup-plugin-bundleless": "^1.1.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8"
   },
   "simple-git-hooks": {
     "commit-msg": "npm run commitlint",
