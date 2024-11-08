@@ -14,3 +14,4 @@ temp/*
 .eslintcache
 coverage
 temp-*
+playground
