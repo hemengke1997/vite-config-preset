@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.2.1...v1.3.0) (2024-11-08)
+
+
+### Features
+
+* route-chunk-readable plugin ([fd4d8e9](https://github.com/hemengke1997/vite-config-preset/commit/fd4d8e9e55fb393098effc0512341d1d62359720))
+
+
+
 ## [1.2.1](https://github.com/hemengke1997/vite-config-preset/compare/v1.2.0...v1.2.1) (2024-11-08)
 
 
