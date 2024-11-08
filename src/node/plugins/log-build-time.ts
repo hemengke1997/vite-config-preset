@@ -7,7 +7,7 @@ export function logBuildTime(configEnv: ConfigEnv): PluginOption {
   const infoStr = logTimeInfo(mode)
 
   return {
-    name: 'vite:log-build-time',
+    name: 'vite-log-build-time',
     enforce: 'post',
     transformIndexHtml: {
       order: 'post',

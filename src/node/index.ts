@@ -3,7 +3,6 @@ import { type Options as ReactOptions } from '@vitejs/plugin-react'
 import createDebug from 'debug'
 import deepMerge from 'deepmerge'
 import glob from 'fast-glob'
-import path from 'node:path'
 import {
   type ConfigEnv,
   loadEnv,
@@ -61,6 +60,11 @@ interface PluginOptions {
    * @default true
    */
   json5?: boolean | Json5Options
+  /**
+   * route chunk readable
+   * @default true
+   */
+  routeChunkReadable?: boolean
 }
 
 const defaultOptions: PluginOptions = {
@@ -72,6 +76,7 @@ const defaultOptions: PluginOptions = {
   tsconfigPaths: true,
   react: true,
   json5: true,
+  routeChunkReadable: true,
 }
 
 async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: string) {
@@ -81,10 +86,15 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
 
   const { isSsrBuild } = configEnv
 
-  let { svgr, legacy, splitVendorChunk, logBuildTime, vConsole, tsconfigPaths, react, json5 } =
+  let { svgr, legacy, splitVendorChunk, logBuildTime, vConsole, tsconfigPaths, react, json5, routeChunkReadable } =
     options as Required<PluginOptions>
 
   const vitePlugins: PluginOption = [visualizerPlugin()]
+
+  if (routeChunkReadable !== false) {
+    const { chunkReadable } = await import('./plugins/route-chunk-readable')
+    vitePlugins.push(chunkReadable())
+  }
 
   if (svgr !== false) {
     const { svgr: svgrPlugin } = await import('./plugins/svgr')
@@ -161,6 +171,8 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
 const getDefaultConfig = async (config: { root: string } & ConfigEnv, options?: PluginOptions): Promise<UserConfig> => {
   const { root, ...configEnv } = config
 
+  const ASSETS_DIR = 'assets'
+
   return {
     root,
     mode: configEnv.mode,
@@ -172,10 +184,10 @@ const getDefaultConfig = async (config: { root: string } & ConfigEnv, options?: 
       minify: 'esbuild',
       chunkSizeWarningLimit: 2048,
       sourcemap: false,
-
       // https://github.com/evanw/esbuild/issues/121#issuecomment-646956379
       target: options?.legacy === false ? ['es2015'] : undefined,
       reportCompressedSize: false,
+      assetsDir: ASSETS_DIR,
       rollupOptions: {
         treeshake: true,
         onwarn(warning, warn) {
@@ -183,20 +195,6 @@ const getDefaultConfig = async (config: { root: string } & ConfigEnv, options?: 
             return
           }
           warn(warning)
-        },
-        output: {
-          chunkFileNames(chunkInfo) {
-            if (chunkInfo.facadeModuleId) {
-              const pageChunkNames = ['index', 'route', 'page', 'layout']
-              if (pageChunkNames.some((chunk) => new RegExp(`_?${chunk}$`).test(chunkInfo.name))) {
-                const parentDir = path.basename(path.dirname(chunkInfo.facadeModuleId))
-                if (parentDir) {
-                  return `${parentDir}.[name]-[hash].js`
-                }
-              }
-            }
-            return `[name]-[hash].js`
-          },
         },
       },
       ssrManifest: configEnv.isSsrBuild,
