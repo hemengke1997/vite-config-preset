@@ -1,3 +1,12 @@
+## [1.3.1](https://github.com/hemengke1997/vite-config-preset/compare/v1.3.0...v1.3.1) (2024-11-08)
+
+
+### Bug Fixes
+
+* route chunk readable ([c1cd351](https://github.com/hemengke1997/vite-config-preset/commit/c1cd35166991cf610c20d3b6799d17d14e666dcb))
+
+
+
 # [1.3.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.2.1...v1.3.0) (2024-11-08)
 
 
