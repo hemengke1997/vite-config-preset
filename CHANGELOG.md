@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/hemengke1997/vite-config-preset/compare/v1.2.0...v1.2.1) (2024-11-08)
+
+
+### Features
+
+* chunk file name readable ([f7030d5](https://github.com/hemengke1997/vite-config-preset/commit/f7030d5c93029f48e4e0a1922724965b9def1e4d))
+
+
+
 # [1.2.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.1.0...v1.2.0) (2024-09-30)
 
 
