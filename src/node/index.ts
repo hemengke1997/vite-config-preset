@@ -3,6 +3,7 @@ import { type Options as ReactOptions } from '@vitejs/plugin-react'
 import createDebug from 'debug'
 import deepMerge from 'deepmerge'
 import glob from 'fast-glob'
+import path from 'node:path'
 import {
   type ConfigEnv,
   loadEnv,
@@ -62,9 +63,6 @@ interface PluginOptions {
   json5?: boolean | Json5Options
 }
 
-// https://github.com/evanw/esbuild/issues/121#issuecomment-646956379
-const esbuildTarget = ['es2015']
-
 const defaultOptions: PluginOptions = {
   svgr: { svgrOptions: { icon: true } },
   legacy: false,
@@ -97,7 +95,7 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
     // splitVendorChunk brings inline css which make style order
     // and css weights wrong in legacy render
     // https://github.com/vitejs/vite/issues/2062
-    !isSsrBuild && !legacy && vitePlugins.push(splitVendorChunkPlugin())
+    !isSsrBuild && !legacy && vitePlugins?.push(splitVendorChunkPlugin())
   }
 
   if (legacy !== false) {
@@ -174,7 +172,9 @@ const getDefaultConfig = async (config: { root: string } & ConfigEnv, options?: 
       minify: 'esbuild',
       chunkSizeWarningLimit: 2048,
       sourcemap: false,
-      target: options?.legacy === false ? esbuildTarget : undefined,
+
+      // https://github.com/evanw/esbuild/issues/121#issuecomment-646956379
+      target: options?.legacy === false ? ['es2015'] : undefined,
       reportCompressedSize: false,
       rollupOptions: {
         treeshake: true,
@@ -184,8 +184,21 @@ const getDefaultConfig = async (config: { root: string } & ConfigEnv, options?: 
           }
           warn(warning)
         },
+        output: {
+          chunkFileNames(chunkInfo) {
+            if (chunkInfo.facadeModuleId) {
+              const pageChunkNames = ['index', 'route', 'page', 'layout']
+              if (pageChunkNames.some((chunk) => new RegExp(`_?${chunk}$`).test(chunkInfo.name))) {
+                const parentDir = path.basename(path.dirname(chunkInfo.facadeModuleId))
+                if (parentDir) {
+                  return `${parentDir}.[name]-[hash].js`
+                }
+              }
+            }
+            return `[name]-[hash].js`
+          },
+        },
       },
-      cssCodeSplit: true,
       ssrManifest: configEnv.isSsrBuild,
     },
   }
