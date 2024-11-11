@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.3.1...v1.4.0) (2024-11-11)
+
+
+### Features
+
+* min-chunk-size plugin ([e234310](https://github.com/hemengke1997/vite-config-preset/commit/e234310893d186c95cb0f4adefba3fdf05e9f252))
+
+
+
 ## [1.3.1](https://github.com/hemengke1997/vite-config-preset/compare/v1.3.0...v1.3.1) (2024-11-08)
 
 
