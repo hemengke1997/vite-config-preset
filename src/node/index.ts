@@ -16,6 +16,7 @@ import { type Json5Options } from 'vite-plugin-json5'
 import { type VitePluginSvgrOptions } from 'vite-plugin-svgr'
 import { type viteVConsoleOptions } from 'vite-plugin-vconsole'
 import { type LegacyOptions } from './plugins/legacy'
+import { type MinChunkSizeOptions } from './plugins/min-chunk-size'
 import { visualizer as visualizerPlugin } from './plugins/visualizer'
 import { injectEnv, pathsMapToAlias } from './utils'
 import { isBoolean } from './utils/is'
@@ -65,6 +66,11 @@ interface PluginOptions {
    * @default true
    */
   routeChunkReadable?: boolean
+  /**
+   * chunk size limit. If the size of a chunk is less than the limit, it will be inlined into the parent chunk.
+   * @default true
+   */
+  minChunkSize?: boolean | MinChunkSizeOptions
 }
 
 const defaultOptions: PluginOptions = {
@@ -77,6 +83,7 @@ const defaultOptions: PluginOptions = {
   react: true,
   json5: true,
   routeChunkReadable: true,
+  minChunkSize: true,
 }
 
 async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: string) {
@@ -86,14 +93,29 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
 
   const { isSsrBuild } = configEnv
 
-  let { svgr, legacy, splitVendorChunk, logBuildTime, vConsole, tsconfigPaths, react, json5, routeChunkReadable } =
-    options as Required<PluginOptions>
+  let {
+    svgr,
+    legacy,
+    splitVendorChunk,
+    logBuildTime,
+    vConsole,
+    tsconfigPaths,
+    react,
+    json5,
+    routeChunkReadable,
+    minChunkSize,
+  } = options as Required<PluginOptions>
 
   const vitePlugins: PluginOption = [visualizerPlugin()]
 
   if (routeChunkReadable !== false) {
     const { chunkReadable } = await import('./plugins/route-chunk-readable')
     vitePlugins.push(chunkReadable())
+  }
+
+  if (minChunkSize !== false) {
+    const { minChunkSize: minChunkSizePlugin } = await import('./plugins/min-chunk-size')
+    vitePlugins.push(minChunkSizePlugin(isBoolean(minChunkSize) ? {} : minChunkSize))
   }
 
   if (svgr !== false) {

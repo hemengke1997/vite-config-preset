@@ -1,9 +1,6 @@
+import { isArray, isObject } from 'lodash-es'
 import path from 'node:path'
 import { type PluginOption } from 'vite'
-
-function isObject(obj: unknown): obj is Record<string, unknown> {
-  return Object.prototype.toString.call(obj) === '[object Object]'
-}
 
 // make route chunk file name more readable
 export function chunkReadable(): PluginOption {
@@ -12,7 +9,7 @@ export function chunkReadable(): PluginOption {
       name: 'vite-route-chunk-readable',
       config(config) {
         const output = config.build?.rollupOptions?.output
-        if (!output || (isObject(output) && !output.chunkFileNames)) {
+        if (!output || (isObject(output) && !isArray(output) && !output.chunkFileNames)) {
           const { assetsDir } = config.build || {}
 
           return {
