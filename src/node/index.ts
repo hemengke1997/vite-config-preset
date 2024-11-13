@@ -68,7 +68,7 @@ interface PluginOptions {
   routeChunkReadable?: boolean
   /**
    * chunk size limit. If the size of a chunk is less than the limit, it will be inlined into the parent chunk.
-   * @default true
+   * @default false
    */
   minChunkSize?: boolean | MinChunkSizeOptions
 }
@@ -83,7 +83,7 @@ const defaultOptions: PluginOptions = {
   react: true,
   json5: true,
   routeChunkReadable: true,
-  minChunkSize: true,
+  minChunkSize: false,
 }
 
 async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: string) {
