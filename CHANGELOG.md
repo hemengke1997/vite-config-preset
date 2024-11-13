@@ -1,3 +1,12 @@
+## [1.4.1](https://github.com/hemengke1997/vite-config-preset/compare/v1.4.0...v1.4.1) (2024-11-13)
+
+
+### Bug Fixes
+
+* disable minChunkSize by default ([f7b689d](https://github.com/hemengke1997/vite-config-preset/commit/f7b689d8e53bf344bd25902522b69ce6f4ce3db3))
+
+
+
 # [1.4.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.3.1...v1.4.0) (2024-11-11)
 
 
