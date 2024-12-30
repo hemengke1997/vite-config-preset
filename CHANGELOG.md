@@ -1,3 +1,7 @@
+# [1.5.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.4.1...v1.5.0) (2024-12-30)
+
+
+
 ## [1.4.1](https://github.com/hemengke1997/vite-config-preset/compare/v1.4.0...v1.4.1) (2024-11-13)
 
 
