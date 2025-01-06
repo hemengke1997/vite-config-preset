@@ -1,3 +1,12 @@
+## [1.5.1](https://github.com/hemengke1997/vite-config-preset/compare/v1.5.0...v1.5.1) (2025-01-06)
+
+
+### Bug Fixes
+
+* peer deps ([8a80504](https://github.com/hemengke1997/vite-config-preset/commit/8a805044cea744da22b0171476a45419c212a5bb))
+
+
+
 # [1.5.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.4.1...v1.5.0) (2024-12-30)
 
 
