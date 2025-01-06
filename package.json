@@ -48,7 +48,7 @@
   "peerDependencies": {
     "@vitejs/plugin-legacy": ">=5",
     "@vitejs/plugin-react": ">=4",
-    "vite": ">=6.0.0"
+    "vite": ">=5"
   },
   "peerDependenciesMeta": {
     "@vitejs/plugin-legacy": {
@@ -61,7 +61,7 @@
   "dependencies": {
     "debug": "^4.4.0",
     "deepmerge": "^4.3.1",
-    "fast-glob": "^3.3.2",
+    "fast-glob": "^3.3.3",
     "get-tsconfig": "^4.8.1",
     "local-pkg": "^0.5.1",
     "picologger": "^0.0.1",
@@ -92,7 +92,7 @@
     "tsup": "^8.3.5",
     "tsup-plugin-bundleless": "^1.2.0",
     "typescript": "^5.7.2",
-    "vite": "^6.0.6"
+    "vite": "^6.0.7"
   },
   "simple-git-hooks": {
     "commit-msg": "npm run commitlint",
