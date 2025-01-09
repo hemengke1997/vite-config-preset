@@ -1,3 +1,12 @@
+# [1.6.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.5.1...v1.6.0) (2025-01-09)
+
+
+### Features
+
+* add restrict image extension plugin ([5152cb2](https://github.com/hemengke1997/vite-config-preset/commit/5152cb27966a539474d8559f152f1db9cebd4a58))
+
+
+
 ## [1.5.1](https://github.com/hemengke1997/vite-config-preset/compare/v1.5.0...v1.5.1) (2025-01-06)
 
 
