@@ -10,6 +10,11 @@
 - [rollup-plugin-visualizer](https://www.npmjs.com/package/rollup-plugin-visualizer) (内置)
 - [vite-plugin-json5](https://www.npmjs.com/package/vite-plugin-json5) (内置)
 
+更多功能：
+- log-build-time。打印构建环境和时间。默认开启
+- route-chunk-readable。增强路由分包可读性，比如 `src/page-a/index.tsx` 会被打包为 `page-a`。默认开启
+- restrict-images。限制导入图片类型
+
 ## 安装
 
 ```bash
@@ -53,6 +58,5 @@ export default defineConfig((env) => {
 
 - [vite-plugin-i18n-ally](https://www.npmjs.com/package/vite-plugin-i18n-ally)
 - [vite-plugin-public-typescript](https://www.npmjs.com/package/vite-plugin-public-typescript)
-- [vite-plugin-html](https://www.npmjs.com/package/vite-plugin-html)
 - [vite-plugin-istanbul-widget](https://www.npmjs.com/package/vite-plugin-istanbul-widget)
 - [vite-plugin-remix-flat-routes](https://www.npmjs.com/package/vite-plugin-remix-flat-routes)
