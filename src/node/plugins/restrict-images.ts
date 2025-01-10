@@ -1,3 +1,4 @@
+import { type PluginContext } from 'rollup'
 import { type PluginOption } from 'vite'
 
 export type RestrictImagesOptions = {
@@ -13,24 +14,36 @@ export function restrictImages(options: RestrictImagesOptions): PluginOption {
     allowedExtensions = ['.webp', '.svg']
   }
 
+  const checkExtension = (ctx: PluginContext, id: string) => {
+    const extension = id.slice(id.lastIndexOf('.'))
+    if (!imageExtensions.includes(extension)) {
+      return
+    }
+
+    if (!allowedExtensions.includes(extension)) {
+      const msg = `[vite-config-preset]: Only ${allowedExtensions.join(', ')} images are allowed. Found: ${id}`
+      if (level === 'warn') {
+        ctx.warn(msg)
+      } else {
+        ctx.error(msg)
+      }
+    }
+  }
+
   return {
     name: 'vite-plugin-restrict-images',
     enforce: 'pre',
     load(id) {
-      const extension = id.slice(id.lastIndexOf('.'))
-
-      if (!imageExtensions.includes(extension)) {
-        return
-      }
-
-      if (!allowedExtensions.includes(extension)) {
-        const msg = `[vite-config-preset]: Only ${allowedExtensions.join(', ')} images are allowed. Found: ${id}`
-        if (level === 'warn') {
-          this.warn(msg)
-          return
-        } else {
-          this.error(msg)
+      checkExtension(this, id)
+    },
+    transform(code, id) {
+      if (id.endsWith('.css')) {
+        const urlRegex = /url\(['"]?([^'")]+)['"]?\)/g
+        const matches = code.matchAll(urlRegex)
+        for (const match of matches) {
+          checkExtension(this, match[1])
         }
+        return code
       }
     },
   }
