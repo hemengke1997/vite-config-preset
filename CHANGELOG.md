@@ -1,3 +1,12 @@
+## [1.6.1](https://github.com/hemengke1997/vite-config-preset/compare/v1.6.0...v1.6.1) (2025-01-10)
+
+
+### Bug Fixes
+
+* restrict images in css file ([f226863](https://github.com/hemengke1997/vite-config-preset/commit/f226863faa90ea8bb10ec3c0838f152db556e82a))
+
+
+
 # [1.6.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.5.1...v1.6.0) (2025-01-09)
 
 
