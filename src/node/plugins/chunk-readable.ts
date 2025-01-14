@@ -30,7 +30,7 @@ export function chunkReadable(): PluginOption {
                   },
                   entryFileNames: `${assetsDir}/js/[name]-[hash].js`,
                   assetFileNames: (assetInfo) => {
-                    const extType = assetInfo.names[0].split('.').pop()
+                    const extType = assetInfo.name
                     if (extType && /css/i.test(extType)) {
                       return `${assetsDir}/css/[name]-[hash][extname]`
                     }
