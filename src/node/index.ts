@@ -26,15 +26,21 @@ const debug = createDebug('vite-config')
 
 interface PluginOptions {
   /**
+   * svgr 插件
+   *
    * @default
    * { svgrOptions: { icon: true } }
    */
   svgr?: VitePluginSvgrOptions | false
   /**
+   * legacy 插件
+   *
    * @default false
    */
   legacy?: LegacyOptions | boolean
   /**
+   * 分包策略
+   *
    * @default
    * when csr and not legacy render
    * @suggestion
@@ -42,19 +48,29 @@ interface PluginOptions {
    */
   splitVendorChunk?: boolean
   /**
+   * 打印构建时间
+   *
    * @default true
    */
   logBuildTime?: boolean
   /**
+   * vconsole 插件
+   *
+   * 按需自行安装 vconsole
+   *
    * @default false
    */
   vConsole?: boolean | viteVConsoleOptions
   /**
+   * tsconfig 别名
+   *
    * tsconfig alias
    * @default true
    */
   tsconfigPaths?: boolean | Parameters<typeof tsconfigPaths>[0]
   /**
+   * react 插件
+   *
    * @default true
    */
   react?: boolean | ReactOptions
@@ -63,10 +79,12 @@ interface PluginOptions {
    */
   json5?: boolean | Json5Options
   /**
-   * route chunk readable
+   * 增强构建后的 chunk 文件结构和名称可读性
+   *
+   * make chunk file name more readable
    * @default true
    */
-  routeChunkReadable?: boolean
+  chunkReadable?: boolean
   /**
    * chunk size limit. If the size of a chunk is less than the limit, it will be inlined into the parent chunk.
    * @default false
@@ -95,7 +113,7 @@ const defaultOptions: PluginOptions = {
   tsconfigPaths: true,
   react: true,
   json5: true,
-  routeChunkReadable: true,
+  chunkReadable: true,
   minChunkSize: false,
   restrictImages: false,
 }
@@ -116,15 +134,15 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
     tsconfigPaths,
     react,
     json5,
-    routeChunkReadable,
+    chunkReadable,
     minChunkSize,
     restrictImages,
   } = options as Required<PluginOptions>
 
   const vitePlugins: PluginOption = [visualizerPlugin()]
 
-  if (routeChunkReadable !== false) {
-    const { chunkReadable } = await import('./plugins/route-chunk-readable')
+  if (chunkReadable !== false) {
+    const { chunkReadable } = await import('./plugins/chunk-readable')
     vitePlugins.push(chunkReadable())
   }
 
