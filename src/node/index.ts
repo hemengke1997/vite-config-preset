@@ -3,6 +3,7 @@ import { type Options as ReactOptions } from '@vitejs/plugin-react'
 import createDebug from 'debug'
 import deepMerge from 'deepmerge'
 import glob from 'fast-glob'
+import { isPackageExists } from 'local-pkg'
 import {
   type ConfigEnv,
   loadEnv,
@@ -39,8 +40,7 @@ interface PluginOptions {
   svgr?: VitePluginSvgrOptions | false
   /**
    * legacy 插件
-   *
-   * @default false
+   * 自动探测 @vitejs/plugin-legacy
    */
   legacy?: LegacyOptions | boolean
   /**
@@ -75,8 +75,7 @@ interface PluginOptions {
   tsconfigPaths?: boolean | Parameters<typeof tsconfigPaths>[0]
   /**
    * react 插件
-   *
-   * @default true
+   * 自动探测 @vitejs/plugin-react
    */
   react?: boolean | ReactOptions
   /**
@@ -111,12 +110,12 @@ interface PluginOptions {
 
 const defaultOptions: PluginOptions = {
   svgr: { svgrOptions: { icon: true } },
-  legacy: false,
+  legacy: undefined,
   splitVendorChunk: undefined,
   logBuildTime: true,
   vConsole: false,
   tsconfigPaths: true,
-  react: true,
+  react: undefined,
   json5: true,
   chunkReadable: true,
   minChunkSize: false,
@@ -167,19 +166,22 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
   }
 
   if (legacy !== false) {
-    const { legacy: legacyPlugin } = await import('./plugins/legacy')
+    // detect @vitejs/plugin-legacy
+    if (isPackageExists('@vitejs/plugin-legacy')) {
+      const { legacy: legacyPlugin } = await import('./plugins/legacy')
 
-    if (legacy === true) {
-      legacy = {
-        renderLegacyChunks: true,
-        renderModernChunks: true,
-        polyfills: true,
-        modernPolyfills: true,
-        additionalLegacyPolyfills: ['core-js/proposals/global-this'],
+      if (legacy === true) {
+        legacy = {
+          renderLegacyChunks: true,
+          renderModernChunks: true,
+          polyfills: true,
+          modernPolyfills: true,
+          additionalLegacyPolyfills: ['core-js/proposals/global-this'],
+        }
       }
-    }
 
-    vitePlugins.push(legacyPlugin(legacy))
+      vitePlugins.push(legacyPlugin(legacy))
+    }
   }
 
   if (logBuildTime) {
@@ -189,7 +191,6 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
 
   if (vConsole) {
     let entryDir = 'src'
-    const { isPackageExists } = await import('local-pkg')
     if (isPackageExists('vite-plugin-remix-flat-routes')) {
       entryDir = 'app'
     }
@@ -211,9 +212,11 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
     vitePlugins.push(tsconfigPathsPlugin(isBoolean(tsconfigPaths) ? {} : tsconfigPaths))
   }
 
-  if (react) {
-    const { react: reactPlugin } = await import('./plugins/react')
-    vitePlugins.push(reactPlugin(isBoolean(react) ? {} : react))
+  if (react !== false) {
+    if (isPackageExists('@vitejs/plugin-react')) {
+      const { react: reactPlugin } = await import('./plugins/react')
+      vitePlugins.push(reactPlugin(isBoolean(react) ? {} : react))
+    }
   }
 
   if (json5) {
