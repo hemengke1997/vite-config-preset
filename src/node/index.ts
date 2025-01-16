@@ -26,6 +26,11 @@ const debug = createDebug('vite-config')
 
 interface PluginOptions {
   /**
+   * 是否把 .env 中的变量注入到 process.env 中
+   * @default false
+   */
+  injectDotEnv?: boolean
+  /**
    * svgr 插件
    *
    * @default
@@ -119,8 +124,6 @@ const defaultOptions: PluginOptions = {
 }
 
 async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: string) {
-  options = deepMerge(defaultOptions, options, { arrayMerge: (_, source) => source })
-
   debug('options:', options)
 
   const { isSsrBuild } = configEnv
@@ -268,13 +271,17 @@ const preset = async (
   },
   options?: PluginOptions,
 ) => {
+  options = deepMerge(defaultOptions, options || {}, { arrayMerge: (_, source) => source })
+  const { injectDotEnv } = options
   const { env, ...viteConfig } = userConfig
   const { mode } = env
   const root = viteConfig.root || process.cwd()
 
-  const envVars = loadEnv(mode, root)
-  debug('envVars:', envVars)
-  injectEnv(envVars)
+  if (injectDotEnv) {
+    const envVars = loadEnv(mode, root, viteConfig.envPrefix)
+    debug('envVars:', envVars)
+    injectEnv(envVars)
+  }
 
   const config = viteMergeConfig(await getDefaultConfig({ root, ...env }, options), viteConfig)
   debug('config:', config)
