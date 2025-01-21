@@ -19,6 +19,9 @@ export function logBuildTime(configEnv: ConfigEnv): PluginOption {
               injectTo: 'body',
               children: infoStr,
               tag: 'script',
+              attrs: {
+                'data-log-time': true,
+              },
             },
           ],
         }
