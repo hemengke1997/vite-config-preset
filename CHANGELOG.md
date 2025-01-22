@@ -1,3 +1,12 @@
+## [1.6.7](https://github.com/hemengke1997/vite-config-preset/compare/v1.6.6...v1.6.7) (2025-01-22)
+
+
+### Bug Fixes
+
+* **log-time:** reorder ([f34a6b8](https://github.com/hemengke1997/vite-config-preset/commit/f34a6b85c73f95d84d07c4f938f62dd2aaa9987b))
+
+
+
 ## [1.6.6](https://github.com/hemengke1997/vite-config-preset/compare/v1.6.5...v1.6.6) (2025-01-21)
 
 
