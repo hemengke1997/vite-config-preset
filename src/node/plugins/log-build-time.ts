@@ -10,7 +10,6 @@ export function logBuildTime(configEnv: ConfigEnv): PluginOption {
     name: 'vite-log-build-time',
     enforce: 'post',
     transformIndexHtml: {
-      order: 'post',
       handler(html) {
         return {
           html,
