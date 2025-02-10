@@ -245,6 +245,9 @@ const getDefaultConfig = async (config: { root: string } & ConfigEnv, options?: 
     resolve: {
       alias: pathsMapToAlias(root),
     },
+    ssr: {
+      noExternal: ['vite-config-preset'],
+    },
     plugins: await setupPlugins(options || {}, configEnv, root),
     build: {
       minify: 'esbuild',
