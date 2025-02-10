@@ -1,3 +1,12 @@
+## [1.6.8](https://github.com/hemengke1997/vite-config-preset/compare/v1.6.7...v1.6.8) (2025-02-10)
+
+
+### Bug Fixes
+
+* ssr virtual module resolve error ([e552473](https://github.com/hemengke1997/vite-config-preset/commit/e5524734e541f41533fabb9882370803526885cb))
+
+
+
 ## [1.6.7](https://github.com/hemengke1997/vite-config-preset/compare/v1.6.6...v1.6.7) (2025-01-22)
 
 
