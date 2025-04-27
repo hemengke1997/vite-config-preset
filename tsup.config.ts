@@ -9,10 +9,10 @@ const tsupConfig: Options = {
 
 const esm: Options = {
   ...tsupConfig,
-  entry: ['src/client/**/*.ts'],
+  entry: ['src/isomorph/**/*.ts'],
   target: 'es2022',
-  outDir: 'dist/client',
-  format: ['esm'],
+  outDir: 'dist/isomorph',
+  format: ['esm', 'cjs'],
   splitting: false,
   dts: {
     banner: '/// <reference types="vite/client" />',
