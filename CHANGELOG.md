@@ -1,3 +1,12 @@
+# [2.0.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.6.8...v2.0.0) (2025-04-27)
+
+
+### Features
+
+* **break-change:** mv client to isomorph ([b049c5d](https://github.com/hemengke1997/vite-config-preset/commit/b049c5d960fa5c89c75616db9f610660cfddc0dc))
+
+
+
 ## [1.6.8](https://github.com/hemengke1997/vite-config-preset/compare/v1.6.7...v1.6.8) (2025-02-10)
 
 
