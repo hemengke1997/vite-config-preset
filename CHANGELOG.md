@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/hemengke1997/vite-config-preset/compare/v2.0.0...v2.1.0) (2025-05-23)
+
+
+### Features
+
+* worker output chunk readable ([2cc2066](https://github.com/hemengke1997/vite-config-preset/commit/2cc2066e47e2dd15526c766e20612b16d6c7d451))
+
+
+
 # [2.0.0](https://github.com/hemengke1997/vite-config-preset/compare/v1.6.8...v2.0.0) (2025-04-27)
 
 
