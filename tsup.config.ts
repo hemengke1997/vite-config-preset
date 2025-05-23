@@ -17,6 +17,10 @@ const esm: Options = {
   dts: {
     banner: '/// <reference types="vite/client" />',
   },
+  esbuildOptions(options) {
+    options.logOverride ||= {}
+    options.logOverride['empty-import-meta'] = 'silent'
+  },
   ...bundleless(),
 }
 

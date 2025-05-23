@@ -5,7 +5,13 @@ export enum Env {
 }
 
 export function getEnv(): string {
-  return import.meta.env.MODE
+  if (typeof import.meta !== 'undefined' && import.meta.env) {
+    return import.meta.env.MODE
+  } else if (typeof process !== 'undefined' && process.env.NODE_ENV) {
+    return process.env.NODE_ENV
+  } else {
+    return Env.production
+  }
 }
 
 export function isDev(): boolean {

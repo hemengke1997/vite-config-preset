@@ -22,19 +22,31 @@ export function chunkReadable(): PluginOption {
                       if (pageChunkNames.some((chunk) => new RegExp(`_?${chunk}$`).test(chunkInfo.name))) {
                         const parentDir = path.basename(path.dirname(chunkInfo.facadeModuleId))
                         if (parentDir) {
-                          return `${assetsDir}/js/${parentDir}.[name]-[hash].js`
+                          return `${assetsDir}/js/${parentDir}.[name].[hash].js`
                         }
                       }
                     }
-                    return `${assetsDir}/js/[name]-[hash].js`
+                    return `${assetsDir}/js/[name].[hash].js`
                   },
-                  entryFileNames: `${assetsDir}/js/[name]-[hash].js`,
+                  entryFileNames: `${assetsDir}/js/[name].[hash].js`,
                   assetFileNames: (assetInfo) => {
                     const extType = assetInfo.name
                     if (extType && /css/i.test(extType)) {
-                      return `${assetsDir}/css/[name]-[hash][extname]`
+                      return `${assetsDir}/css/[name].[hash][extname]`
                     }
-                    return `${assetsDir}/static/[name]-[hash][extname]`
+                    return `${assetsDir}/static/[name].[hash][extname]`
+                  },
+                },
+              },
+            },
+            worker: {
+              rollupOptions: {
+                output: {
+                  entryFileNames() {
+                    return `${assetsDir}/js/worker/[name].[hash].js`
+                  },
+                  assetFileNames() {
+                    return `${assetsDir}/js/worker/[name].[hash].js`
                   },
                 },
               },
