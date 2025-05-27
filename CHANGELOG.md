@@ -1,3 +1,12 @@
+## [2.1.1](https://github.com/hemengke1997/vite-config-preset/compare/v2.1.0...v2.1.1) (2025-05-27)
+
+
+### Bug Fixes
+
+* chunk readable ([9d15baf](https://github.com/hemengke1997/vite-config-preset/commit/9d15bafcc4a0148e00b26bb86eb0096c4f59f64e))
+
+
+
 # [2.1.0](https://github.com/hemengke1997/vite-config-preset/compare/v2.0.0...v2.1.0) (2025-05-23)
 
 
