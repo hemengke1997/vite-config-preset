@@ -19,10 +19,18 @@ export function chunkReadable(): PluginOption {
                   chunkFileNames(chunkInfo) {
                     if (chunkInfo.facadeModuleId) {
                       const pageChunkNames = ['index', 'route', 'page', 'layout']
-                      if (pageChunkNames.some((chunk) => new RegExp(`_?${chunk}$`).test(chunkInfo.name))) {
-                        const parentDir = path.basename(path.dirname(chunkInfo.facadeModuleId))
-                        if (parentDir) {
-                          return `${assetsDir}/js/${parentDir}.[name].[hash].js`
+
+                      for (const chunk of pageChunkNames) {
+                        const regex = new RegExp(`(?:^|_)${chunk}(?=\\.|$)`)
+                        const result = chunkInfo.name.match(regex)
+                        if (result) {
+                          const parentDir = path.basename(path.dirname(chunkInfo.facadeModuleId))
+
+                          const name = chunkInfo.name.replace(regex, parentDir)
+
+                          if (parentDir) {
+                            return `${assetsDir}/js/${name}.[hash].js`
+                          }
                         }
                       }
                     }
