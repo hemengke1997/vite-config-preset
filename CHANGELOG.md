@@ -1,3 +1,12 @@
+## [2.2.3](https://github.com/hemengke1997/vite-config-preset/compare/v2.2.2...v2.2.3) (2025-05-28)
+
+
+### Bug Fixes
+
+* rollup-plugin-visualizer cjs support ([d5dd209](https://github.com/hemengke1997/vite-config-preset/commit/d5dd2094413fd140ee059118d0825de23bd42cd2))
+
+
+
 ## [2.2.2](https://github.com/hemengke1997/vite-config-preset/compare/v2.2.1...v2.2.2) (2025-05-28)
 
 
