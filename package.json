@@ -1,6 +1,6 @@
 {
   "name": "vite-config-preset",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Minko's preset vite config",
   "type": "module",
   "keywords": [
