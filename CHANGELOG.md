@@ -1,3 +1,12 @@
+## [2.2.2](https://github.com/hemengke1997/vite-config-preset/compare/v2.2.1...v2.2.2) (2025-05-28)
+
+
+### Bug Fixes
+
+* visualizer可选配置 ([5266d98](https://github.com/hemengke1997/vite-config-preset/commit/5266d98b8630278da5ce0919844ef875a600809b))
+
+
+
 ## [2.2.1](https://github.com/hemengke1997/vite-config-preset/compare/v2.2.0...v2.2.1) (2025-05-28)
 
 
