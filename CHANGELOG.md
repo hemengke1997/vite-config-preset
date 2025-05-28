@@ -1,3 +1,12 @@
+# [2.2.0](https://github.com/hemengke1997/vite-config-preset/compare/v2.1.1...v2.2.0) (2025-05-28)
+
+
+### Features
+
+* 可自定义rollup-plugin-visualizer参数 ([c4d69ee](https://github.com/hemengke1997/vite-config-preset/commit/c4d69ee1be02e95ea9c0702eaee3f96b3ee31abf))
+
+
+
 ## [2.1.1](https://github.com/hemengke1997/vite-config-preset/compare/v2.1.0...v2.1.1) (2025-05-27)
 
 
