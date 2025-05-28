@@ -5,7 +5,7 @@ export type VisualizerOptions = Partial<PluginVisualizerOptions> & {
 }
 
 export function visualizer(options: VisualizerOptions = {}) {
-  const { enable = true, ...rest } = options
+  const { enable = false, ...rest } = options
 
   if (enable) {
     return rollupVisualizer({
