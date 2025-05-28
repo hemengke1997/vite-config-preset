@@ -1,4 +1,4 @@
-import { logTimeInfo } from 'picologger'
+import { logTimeInfo } from 'picologger/built-in'
 import { type ConfigEnv, type PluginOption } from 'vite'
 
 export function logBuildTime(configEnv: ConfigEnv): PluginOption {

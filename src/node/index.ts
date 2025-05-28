@@ -19,7 +19,7 @@ import { type viteVConsoleOptions } from 'vite-plugin-vconsole'
 import { type LegacyOptions } from './plugins/legacy'
 import { type MinChunkSizeOptions } from './plugins/min-chunk-size'
 import { type RestrictImagesOptions } from './plugins/restrict-images'
-import { visualizer as visualizerPlugin } from './plugins/visualizer'
+import { type VisualizerOptions, visualizer as visualizerPlugin } from './plugins/visualizer'
 import { injectEnv, pathsMapToAlias } from './utils'
 import { isBoolean } from './utils/is'
 
@@ -95,6 +95,11 @@ interface PluginOptions {
    */
   minChunkSize?: boolean | MinChunkSizeOptions
   /**
+   * rollup-plugin-visualizer 配置项
+   * 新增 enable 字段来控制是否启用可视化插件
+   */
+  visualizer?: VisualizerOptions
+  /**
    * 限制图片导入类型，只允许指定类型的图片导入
    * 如果开启，默认只允许导入 .webp 和 .svg 类型的图片
    * 也可传入 allowedExtensions 来指定允许导入的图片类型
@@ -139,9 +144,10 @@ async function setupPlugins(options: PluginOptions, configEnv: ConfigEnv, root: 
     chunkReadable,
     minChunkSize,
     restrictImages,
+    visualizer,
   } = options as Required<PluginOptions>
 
-  const vitePlugins: PluginOption = [visualizerPlugin()]
+  const vitePlugins: PluginOption = [visualizerPlugin(visualizer)]
 
   if (chunkReadable !== false) {
     const { chunkReadable } = await import('./plugins/chunk-readable')
