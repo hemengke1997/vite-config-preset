@@ -4,7 +4,7 @@ export type VisualizerOptions = Partial<PluginVisualizerOptions> & {
   enable?: boolean
 }
 
-export function visualizer(options: VisualizerOptions) {
+export function visualizer(options: VisualizerOptions = {}) {
   const { enable = true, ...rest } = options
 
   if (enable) {
